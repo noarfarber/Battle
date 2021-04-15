@@ -16,17 +16,19 @@ class Battle < Sinatra::Base
     session[:player_1_name] = params[:player1]
     session[:player_2_name] = params[:player2]
     session[:message] = "You have added names"
-    redirect '/starting_game'
+    redirect '/game'
   end
 
-  get '/starting_game' do
+  get '/game' do
     @player1 = session[:player_1_name]
     @player2 = session[:player_2_name]
-    erb :starting_game
+    @message = session[:message]
+    erb :game
   end
 
   post '/attack' do
     session[:message] = "You have attacked"
+    redirect '/game'
   end
 
   run! if app_file == $0
